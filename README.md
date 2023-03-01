@@ -1,5 +1,5 @@
-Fuentes correspondientes a los tutoriales del Canal DevLatino
+Fuentes correspondientes a los tutoriales del Canal Dev Latino
 
 Canal:
-https://www.youtube.com/@DevLatino
+https://www.youtube.com/@Dev_Latino
 
