@@ -2,16 +2,16 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) {}
 
-  @Post('Login')
-  async login(@Body() body) {
-    console.log(body);
-    return this.authService.crearToken(body);
-  }
+    @Post('login')
+    async login(@Body() body){
+        return this.authService.createToken(body);
+    }
+
 }
