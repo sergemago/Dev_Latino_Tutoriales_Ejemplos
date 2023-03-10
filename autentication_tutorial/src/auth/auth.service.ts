@@ -1,3 +1,7 @@
+/*
+https://docs.nestjs.com/providers#services
+*/
+
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -5,21 +9,22 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async createToken(user) {
-    const payload = this.validateUser(user.username);
+  async crearToken(user) {
+    const payload = await this.validarUsuario(user);
     return {
-      access_token: this.jwtService.sign({ username: user.username, sub: user.userId},{expiresIn: '60s'}),
+      access_token: this.jwtService.sign(
+        { username: payload.username, sub: payload.sub },
+        { expiresIn: '120s' },
+      ),
     };
   }
 
-  async validateUser(body: any) {
+  async validarUsuario(body: any) {
     const user = await this.findOne(body.username);
-
     if (user && user.password === body.password) {
-      return { username: user.username, sub: user.userId};
+      return { username: user.username, sub: user.userId };
     }
   }
-
   private readonly users = [
     {
       userId: 1,
@@ -34,6 +39,6 @@ export class AuthService {
   ];
 
   async findOne(username: string): Promise<any | undefined> {
-    return this.users.find(user => user.username === username);
+    return this.users.find((user) => user.username === username);
   }
 }
